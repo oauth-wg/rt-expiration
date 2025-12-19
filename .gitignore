@@ -18,7 +18,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-watson-rt-expiration.xml
+draft-ietf-rt-expiration.xml
 package-lock.json
 report.xml
 !requirements.txt

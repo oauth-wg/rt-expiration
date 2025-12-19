@@ -3,7 +3,7 @@ title: "OAuth 2.0 Refresh Token and Authorization Expiration"
 abbrev: "OAuth RT/Authorization Expiration"
 category: info
 
-docname: draft-watson-oauth-refresh-token-expiration-latest
+docname: draft-ietf-oauth-refresh-token-expiration-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -21,8 +21,8 @@ venue:
   type: "Working Group"
   mail: "oauth@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/oauth/"
-  github: "njwatson32/rt-expiration"
-  latest: "https://njwatson32.github.io/rt-expiration/draft-watson-oauth-refresh-token-expiration.html"
+  github: "oauth-wg/rt-expiration"
+  latest: "https://drafts.oauth.net/rt-expiration/draft-ietf-oauth-refresh-token-expiration.html"
 
 author:
  -
