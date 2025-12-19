@@ -1,5 +1,8 @@
 name: "Publish New Draft Version"
 
+env:
+  UPLOAD_EMAIL: nwatson@google.com
+  
 on:
   push:
     tags:
