@@ -151,7 +151,8 @@ This specification introduces two new response parameters.
 If finite, the authorization server MUST return these values whenever the token
 endpoint response contains the `refresh_token` field. The authorization server
 MAY return these values even if the response contains no `refresh_token` field
-in the response, which can be useful in the following example cases:
+in the response, in which case the values correspond to the presented
+`refresh_token`. This can be useful in the following example cases:
 
 *   For `refresh_token_timeout`, the authorization server could have
     updated the existing refresh token lifetime in place.
