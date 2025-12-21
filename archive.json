@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-13T00:59:17.615876+00:00",
-  "repo": "njwatson32/rt-expiration",
+  "timestamp": "2025-12-21T01:06:36.215874+00:00",
+  "repo": "oauth-wg/rt-expiration",
   "labels": [
     {
       "name": "bug",
@@ -54,10 +54,10 @@
       "number": 1,
       "id": "I_kwDOOTpjy862Gb4-",
       "title": "Test Issue",
-      "url": "https://github.com/njwatson32/rt-expiration/issues/1",
+      "url": "https://github.com/oauth-wg/rt-expiration/issues/1",
       "state": "CLOSED",
       "author": "njwatson32",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
@@ -70,7 +70,7 @@
       "number": 2,
       "id": "I_kwDOOTpjy87CDi_S",
       "title": "Necessity of this draft",
-      "url": "https://github.com/njwatson32/rt-expiration/issues/2",
+      "url": "https://github.com/oauth-wg/rt-expiration/issues/2",
       "state": "CLOSED",
       "author": "yaron-zehavi",
       "authorAssociation": "NONE",
@@ -83,7 +83,7 @@
       "comments": [
         {
           "author": "njwatson32",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "- `refresh_token_expires_in`: There are lots of clients that use their access infrequently, and may only refresh the token when needed. `lifetime(RT) >= lifetime(AT)` is indeed obvious, but that's insufficient information for clients that, say, only use their RT when the user is using the app.\n- `consent_expires_in`: This one is needed for the reasons mentioned in the draft. Users can extend consent out of band to avoid an interruption in service. Waiting for expiration first is a very bad experience. Google has had several large clients ask us to return this information.",
           "createdAt": "2025-07-23T10:59:18Z",
           "updatedAt": "2025-07-23T10:59:18Z"
@@ -97,7 +97,7 @@
         },
         {
           "author": "njwatson32",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "1. I don't think this follows. I would think the opposite, in fact. Clients that only use the RT rarely would now know that they need to use it at a particular cadence. If they don't bother to implement anything, that's their call, but we need to at least give them the info to make that choice. Otherwise they're likely to either assume the RT lasts forever, potentially resulting in a bad experience, or refresh every hour even if unneeded, which is wasteful.\n2. The value can change. I can't think of a case when it would be shortened, as users would be likely to just revoke rather than shorten. Lengthening is useful to communicate to the client. If clients with \"offline\" use cases (e.g. email monitoring) detect that the duration is coming to an end, they want to proactively remind the user to extend consent.",
           "createdAt": "2025-07-23T16:49:36Z",
           "updatedAt": "2025-07-23T16:49:36Z"
@@ -115,7 +115,7 @@
       "number": 4,
       "id": "I_kwDOOTpjy87WtYHY",
       "title": "Complexity in authorization lifetimes being bound to scopes",
-      "url": "https://github.com/njwatson32/rt-expiration/issues/4",
+      "url": "https://github.com/oauth-wg/rt-expiration/issues/4",
       "state": "OPEN",
       "author": "gffletch",
       "authorAssociation": "NONE",
@@ -128,7 +128,7 @@
       "comments": [
         {
           "author": "njwatson32",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "Yes, I probably should slightly open this can of worms, if only to acknowledge that it's a can of worms and make a recommendation. I'd lean to say that the AS SHOULD return the minimum expiration time across all scopes.\n\nFor RAR, what would cause the refresh token to have 10-minute validity? User choice, system policy, client request, something else?",
           "createdAt": "2025-11-11T07:49:11Z",
           "updatedAt": "2025-11-11T07:49:11Z"
@@ -146,7 +146,7 @@
       "number": 5,
       "id": "I_kwDOOTpjy87WtboO",
       "title": "Are clients expected to manage only a single refresh_token per AS?",
-      "url": "https://github.com/njwatson32/rt-expiration/issues/5",
+      "url": "https://github.com/oauth-wg/rt-expiration/issues/5",
       "state": "OPEN",
       "author": "gffletch",
       "authorAssociation": "NONE",
@@ -159,7 +159,7 @@
       "comments": [
         {
           "author": "njwatson32",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "The direct answer to your title question is \"no, clients can decide how many RTs they want to manage\", but I think there's a tradeoff here. If the client wants multiple RTs, that's typically going to be multiple round trips through the AS that require user interaction, which may be cumbersome. But as you say, it will ultimately result in better client control over managing expiration.\n\nI could mention this tradeoff in UX Considerations.",
           "createdAt": "2025-11-11T07:45:59Z",
           "updatedAt": "2025-11-11T07:45:59Z"
@@ -177,7 +177,7 @@
       "number": 6,
       "id": "I_kwDOOTpjy87Wtd6C",
       "title": "Is the user required to \"re-authorize\" the client via a client initiated flow?",
-      "url": "https://github.com/njwatson32/rt-expiration/issues/6",
+      "url": "https://github.com/oauth-wg/rt-expiration/issues/6",
       "state": "OPEN",
       "author": "gffletch",
       "authorAssociation": "NONE",
@@ -190,7 +190,7 @@
       "comments": [
         {
           "author": "njwatson32",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "This is something the user would have to do at the AS because it's the AS that controls the underlying credentials that would need updating. Whether or not it's user-initiated or client-initiated seems like it should be out of scope for normative parts of the spec, though I think it's probably reasonable to mention this in the UX Considerations section. WDYT?",
           "createdAt": "2025-11-11T07:39:50Z",
           "updatedAt": "2025-11-11T07:39:50Z"
@@ -210,19 +210,19 @@
       "number": 3,
       "id": "PR_kwDOOTpjy86gkDMZ",
       "title": "fix section reference",
-      "url": "https://github.com/njwatson32/rt-expiration/pull/3",
+      "url": "https://github.com/oauth-wg/rt-expiration/pull/3",
       "state": "OPEN",
       "author": "aaronpk",
-      "authorAssociation": "COLLABORATOR",
+      "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-07-25T04:05:26Z",
       "updatedAt": "2025-07-25T04:05:26Z",
-      "baseRepository": "njwatson32/rt-expiration",
+      "baseRepository": "oauth-wg/rt-expiration",
       "baseRefName": "main",
       "baseRefOid": "ef58e6762bb31088ba5b986dcc2cb1347b2719b7",
-      "headRepository": "njwatson32/rt-expiration",
+      "headRepository": "oauth-wg/rt-expiration",
       "headRefName": "aaronpk-patch-1",
       "headRefOid": "427c784b4a77ff705aebb844e9bd3c80e85a3c3e",
       "closedAt": null,
