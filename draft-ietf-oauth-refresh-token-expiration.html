@@ -22,14 +22,14 @@ expiration.
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
     platformdirs 4.5.1
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-ietf-oauth-refresh-token-expiration.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -170,7 +170,7 @@ expiration.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -178,7 +178,8 @@ expiration.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -570,6 +571,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -640,7 +642,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1048,11 +1050,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">OAuth RT/Authorization Expiration</td>
-<td class="right">December 2025</td>
+<td class="right">February 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Watson</td>
-<td class="center">Expires 22 June 2026</td>
+<td class="center">Expires 31 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-oauth-refresh-token-expiration-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-19" class="published">19 December 2025</time>
+<time datetime="2026-02-27" class="published">27 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-06-22">22 June 2026</time></dd>
+<dd class="expires"><time datetime="2026-08-31">31 August 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1124,7 @@ expiration.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 June 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1131,7 +1133,7 @@ expiration.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1184,7 +1186,7 @@ expiration.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                     <p id="section-toc.1-1.6.2.1.2.1.1"><a href="#section-6.1.1" class="auto internal xref">6.1.1</a>.  <a href="#name-relationship-of-authorizati" class="internal xref">Relationship of <code>authorization_expires_in</code> to scopes</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1.2.2">
-                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-infinite-expiration" class="internal xref">Infinite Expiration</a></p>
+                    <p id="section-toc.1-1.6.2.1.2.2.1"><a href="#section-6.1.2" class="auto internal xref">6.1.2</a>.  <a href="#name-indefinite-expiration" class="internal xref">Indefinite Expiration</a></p>
 </li>
                 </ul>
 </li>
@@ -1226,6 +1228,9 @@ expiration.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                     <p id="section-toc.1-1.11.2.2.2.1.1"><a href="#section-11.2.1" class="auto internal xref">11.2.1</a>.  <a href="#name-registry-contents-2" class="internal xref">Registry Contents</a></p>
 </li>
                 </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
+                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-change-history" class="internal xref">Change History</a></p>
 </li>
             </ul>
 </li>
@@ -1414,27 +1419,37 @@ refresh tokens for the same scopes.<a href="#section-6.1.1-1" class="pilcrow">¶
 <p id="section-6.1.1-2">Tying authorization lifetime to scopes means it's possible to have some access
 valid for one duration and other access valid for a different duration. For
 example, a user could grant indefinite access for the <code>openid</code> scope and
-short-lived access for a calendar scope.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+short-lived access for a calendar scope. In situations like this, it is
+<span class="bcp14">RECOMMENDED</span> that the authorization server return the minimum time that any
+access granted by the refresh token is valid. This does run some risk of the
+client asking the user to reauthorize prematurely. In the previous example, the
+client might ask the user to reauthorize the <code>openid</code> scope because it received
+an <code>authorization_expires_in</code> value corresponding to the short-lived calendar
+scope.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1.1-3">If clients are requesting multiple scopes that can have different lifetimes,
+they will ultimately need make their own tradeoffs to decide how and when to ask
+the user for reauthorization. This specification's goal is simply to provide
+them with more information to make this decision.<a href="#section-6.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="infinite-expiration">
+<div id="indefinite-expiration">
 <section id="section-6.1.2">
-          <h4 id="name-infinite-expiration">
-<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-infinite-expiration" class="section-name selfRef">Infinite Expiration</a>
+          <h4 id="name-indefinite-expiration">
+<a href="#section-6.1.2" class="section-number selfRef">6.1.2. </a><a href="#name-indefinite-expiration" class="section-name selfRef">Indefinite Expiration</a>
           </h4>
 <p id="section-6.1.2-1">Omitted values indicate that there is no fixed upper bound on the lifetime of
 the credential or authorization. If the authorization server has not declared
 its support for refresh token lifetime in the Authorization Server Metadata,
 omitted response fields could indicate either indefinite validity or simply lack
-of support for this specification. However, infinite expiration and lack of
+of support for this specification. However, indefinite expiration and lack of
 information about expiration should be handled by the client in the same way.
 That is to say, the client must always handle refresh token invalidation not
 caused by expiration, such as by explicit user revocation.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.2-2">Rather than omitting a response value, an authorization server may choose to
 return a large arbitrary value, e.g. 315569520 for 10 years. This avoids any
-ambiguity around support for infinite values while achieving a similar practical
-effect. Clients <span class="bcp14">MUST</span> treat all large values as literals and <span class="bcp14">MUST NOT</span> make any
-assumptions about which may be considered infinite.<a href="#section-6.1.2-2" class="pilcrow">¶</a></p>
+ambiguity around support for indefinite values while achieving a similar
+practical effect. Clients <span class="bcp14">MUST</span> treat all large values as literals and <span class="bcp14">MUST NOT</span>
+make any assumptions about which may be considered indefinite.<a href="#section-6.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1456,30 +1471,41 @@ expiration and should be sufficient. Upon receiving this error code the client
         </h3>
 <p id="section-6.3-1">Suppose an authorization server enforces that refresh tokens must be exchanged
 at least once every 7 days, and a user has granted authorization to an
-application for access for 30 days. The initial exchange will result in the
-following response values:<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+application for access for 30 days. The initial authorization code grant will
+result in the following response values:<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.3-2">
 <pre>
 refresh_token_timeout: 604800  // 7 days
 authorization_expires_in: 2592000  // 30 days
 </pre><a href="#section-6.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3-3">An exchange 7 days after initial authorization will result in the following
-response values:<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">A refresh token grant 7 days after initial authorization will result in the
+following response values:<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.3-4">
 <pre>
 refresh_token_timeout: 604800  // 7 days
 authorization_expires_in: 1987200  // 23 days
 </pre><a href="#section-6.3-4" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3-5">An exchange 28 days after initial authorization will result in the following
-response values:<a href="#section-6.3-5" class="pilcrow">¶</a></p>
+<p id="section-6.3-5">A refresh token grant 28 days after initial authorization will result in the
+following response values:<a href="#section-6.3-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.3-6">
 <pre>
 refresh_token_timeout: 172800  // 2 days
 authorization_expires_in: 172800  // 2 days
 </pre><a href="#section-6.3-6" class="pilcrow">¶</a>
 </div>
+<p id="section-6.3-7">If instead, the client held the initial refresh token for 8 days (i.e. exceeding
+<code>refresh_token_timeout</code> but not <code>authorization_expires_in</code>), the refresh token
+grant will fail:<a href="#section-6.3-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.3-8">
+<pre>
+error: invalid_grant
+error_description: "expired refresh token"
+</pre><a href="#section-6.3-8" class="pilcrow">¶</a>
+</div>
+<p id="section-6.3-9">Note that the error description text is non-normative and for illustrative
+purposes only.<a href="#section-6.3-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1518,6 +1544,11 @@ access to a user's calendar or inbox.<a href="#section-8-1" class="pilcrow">¶</
 proactively prompt the user for reauthorization next time they're "in the loop"
 (e.g. using a parameter like <code>prompt=consent</code> from <span>[<a href="#OpenID" class="cite xref">OpenID</a>]</span>), or even
 communicate to the user out of band that their granted access is expiring.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Another option an authorization server could provide to the user is a management
+surface where the user can go proactively extend the lifetime of their own
+grant, which would update the lifetime of the client's refresh token(s) in
+place. The client would discover the extended expiration on its next refresh
+token grant request.<a href="#section-8-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1532,10 +1563,16 @@ systems with complicated user authorization models. By requiring refresh tokens
 to expire no later than user authorization expires, there is less risk of bugs
 that accidentally provide data access to the client beyond the term of the
 user's authorization.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">Authorization servers implementing token rotation on every refresh [OAuth 2.1
-Sec 4.3.1] may wish to enforce a maximum duration that a refresh token may be
-held without rotation, and this specification allows that duration to be
-communicated as part of the API rather than relying on documentation.<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-2">Authorization servers implementing token rotation on every refresh [RFC 9700]
+Sec 4.14 may wish to enforce a maximum duration that a refresh token may be held
+without rotation, and this specification allows that duration to be communicated
+as part of the API rather than relying on documentation.<a href="#section-9-2" class="pilcrow">¶</a></p>
+<p id="section-9-3">Clients may wish to maintain multiple refresh tokens with different access in
+order to separate different lifetimes across different scopes. For example, a
+short-lived token to access financial data and a long-lived token to access
+basic user info. There is a tradeoff here, both in complexity of token
+management and also in increased friction for the user to authorize multiple
+tokens.<a href="#section-9-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
@@ -1634,6 +1671,29 @@ supported by the authorization server<a href="#section-11.2.1-1.1.2.1.1" class="
 </div>
 </section>
 </div>
+<div id="change-history">
+<section id="section-11.3">
+        <h3 id="name-change-history">
+<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-change-history" class="section-name selfRef">Change History</a>
+        </h3>
+<p id="section-11.3-1">Delete this section before publication.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.3-2.1">
+            <p id="section-11.3-2.1.1">Feb 27, 2026:<a href="#section-11.3-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.3-2.1.2.1">
+                <p id="section-11.3-2.1.2.1.1">Address Issues 4, 5, 6 from George to discuss tradeoffs around managing
+multiple tokens or scopes with different expirations, as well as out of
+band reauthorization by the user.<a href="#section-11.3-2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-11.3-2.1.2.2">
+                <p id="section-11.3-2.1.2.2.1">Rewording and clarification based on Dan's suggestions on the list.<a href="#section-11.3-2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1660,8 +1720,12 @@ supported by the authorization server<a href="#section-11.2.1-1.1.2.1.1" class="
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8414">[RFC8414]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Sakimura, N.</span>, and <span class="refAuthor">J. Bradley</span>, <span class="refTitle">"OAuth 2.0 Authorization Server Metadata"</span>, <span class="seriesInfo">RFC 8414</span>, <span class="seriesInfo">DOI 10.17487/RFC8414</span>, <time datetime="2018-06" class="refDate">June 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8414">https://www.rfc-editor.org/rfc/rfc8414</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9700">[RFC9700]</dt>
+      <dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Labunets, A.</span>, and <span class="refAuthor">D. Fett</span>, <span class="refTitle">"Best Current Practice for OAuth 2.0 Security"</span>, <span class="seriesInfo">BCP 240</span>, <span class="seriesInfo">RFC 9700</span>, <span class="seriesInfo">DOI 10.17487/RFC9700</span>, <time datetime="2025-01" class="refDate">January 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9700">https://www.rfc-editor.org/rfc/rfc9700</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
