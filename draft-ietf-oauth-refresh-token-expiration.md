@@ -33,6 +33,7 @@ author:
 normative:
   RFC6749:
   RFC8414:
+  RFC9700:
 
 informative:
   RFC9396:
@@ -172,24 +173,35 @@ refresh tokens for the same scopes.
 Tying authorization lifetime to scopes means it's possible to have some access
 valid for one duration and other access valid for a different duration. For
 example, a user could grant indefinite access for the `openid` scope and
-short-lived access for a calendar scope.
+short-lived access for a calendar scope. In situations like this, it is
+RECOMMENDED that the authorization server return the minimum time that any
+access granted by the refresh token is valid. This does run some risk of the
+client asking the user to reauthorize prematurely. In the previous example, the
+client might ask the user to reauthorize the `openid` scope because it received
+an `authorization_expires_in` value corresponding to the short-lived calendar
+scope.
 
-### Infinite Expiration
+If clients are requesting multiple scopes that can have different lifetimes,
+they will ultimately need make their own tradeoffs to decide how and when to ask
+the user for reauthorization. This specification's goal is simply to provide
+them with more information to make this decision.
+
+### Indefinite Expiration
 
 Omitted values indicate that there is no fixed upper bound on the lifetime of
 the credential or authorization. If the authorization server has not declared
 its support for refresh token lifetime in the Authorization Server Metadata,
 omitted response fields could indicate either indefinite validity or simply lack
-of support for this specification. However, infinite expiration and lack of
+of support for this specification. However, indefinite expiration and lack of
 information about expiration should be handled by the client in the same way.
 That is to say, the client must always handle refresh token invalidation not
 caused by expiration, such as by explicit user revocation.
 
 Rather than omitting a response value, an authorization server may choose to
 return a large arbitrary value, e.g. 315569520 for 10 years. This avoids any
-ambiguity around support for infinite values while achieving a similar practical
-effect. Clients MUST treat all large values as literals and MUST NOT make any
-assumptions about which may be considered infinite.
+ambiguity around support for indefinite values while achieving a similar
+practical effect. Clients MUST treat all large values as literals and MUST NOT
+make any assumptions about which may be considered indefinite.
 
 ## Error response
 
@@ -201,23 +213,33 @@ SHOULD start a new authorization grant flow.
 
 Suppose an authorization server enforces that refresh tokens must be exchanged
 at least once every 7 days, and a user has granted authorization to an
-application for access for 30 days. The initial exchange will result in the
-following response values:
+application for access for 30 days. The initial authorization code grant will
+result in the following response values:
 
     refresh_token_timeout: 604800  // 7 days
     authorization_expires_in: 2592000  // 30 days
 
-An exchange 7 days after initial authorization will result in the following
-response values:
+A refresh token grant 7 days after initial authorization will result in the
+following response values:
 
     refresh_token_timeout: 604800  // 7 days
     authorization_expires_in: 1987200  // 23 days
 
-An exchange 28 days after initial authorization will result in the following
-response values:
+A refresh token grant 28 days after initial authorization will result in the
+following response values:
 
     refresh_token_timeout: 172800  // 2 days
     authorization_expires_in: 172800  // 2 days
+
+If instead, the client held the initial refresh token for 8 days (i.e. exceeding
+`refresh_token_timeout` but not `authorization_expires_in`), the refresh token
+grant will fail:
+
+    error: invalid_grant
+    error_description: "expired refresh token"
+
+Note that the error description text is non-normative and for illustrative
+purposes only.
 
 # Update to Authorization Server Metadata
 
@@ -246,6 +268,12 @@ proactively prompt the user for reauthorization next time they're "in the loop"
 (e.g. using a parameter like `prompt=consent` from [OpenID]), or even
 communicate to the user out of band that their granted access is expiring.
 
+Another option an authorization server could provide to the user is a management
+surface where the user can go proactively extend the lifetime of their own
+grant, which would update the lifetime of the client's refresh token(s) in
+place. The client would discover the extended expiration on its next refresh
+token grant request.
+
 # Security Considerations
 
 While it is possible to allow refresh token expiration to exceed that of user
@@ -256,10 +284,17 @@ to expire no later than user authorization expires, there is less risk of bugs
 that accidentally provide data access to the client beyond the term of the
 user's authorization.
 
-Authorization servers implementing token rotation on every refresh [OAuth 2.1
-Sec 4.3.1] may wish to enforce a maximum duration that a refresh token may be
-held without rotation, and this specification allows that duration to be
-communicated as part of the API rather than relying on documentation.
+Authorization servers implementing token rotation on every refresh [RFC 9700]
+Sec 4.14 may wish to enforce a maximum duration that a refresh token may be held
+without rotation, and this specification allows that duration to be communicated
+as part of the API rather than relying on documentation.
+
+Clients may wish to maintain multiple refresh tokens with different access in
+order to separate different lifetimes across different scopes. For example, a
+short-lived token to access financial data and a long-lived token to access
+basic user info. There is a tradeoff here, both in complexity of token
+management and also in increased friction for the user to authorize multiple
+tokens.
 
 # Privacy Considerations
 
@@ -299,6 +334,16 @@ definitions in the IANA OAuth Authorization Server Metadata registry.
         supported by the authorization server
     *   Change Controller: IETF
     *   Reference: This document
+
+## Change History
+
+Delete this section before publication.
+
+*   Feb 27, 2026:
+    *   Address Issues 4, 5, 6 from George to discuss tradeoffs around managing
+        multiple tokens or scopes with different expirations, as well as out of
+        band reauthorization by the user.
+    *   Rewording and clarification based on Dan's suggestions on the list.
 
 --- back
 
