@@ -84,12 +84,33 @@ interruption of service.
 
 # Terminology
 
-"Resource owner" and "user" may be used interchangeably to refer to the entity
-capable of granting access to a protected resource.
+This specification uses terminology defined in [RFC6749]. The following terms
+are used throughout this document:
 
-"Client", "application", and "relying party" may be used interchangeably to
-refer to the application making protected resource requests on behalf of the
-resource owner and with its authorization.
+Resource owner and user
+:   May be used interchangeably to refer to the entity capable of granting
+    access to a protected resource.
+
+Client, application, and relying party
+:   May be used interchangeably to refer to the application making protected
+    resource requests on behalf of the resource owner and with its
+    authorization.
+
+Authorization
+:   The resource owner's permission grant for a client to access protected
+    resources on their behalf, as described in [RFC6749] Sec 4.1.1.
+
+Access token
+:   A credential used by the client to access protected resources on behalf of
+    the resource owner, as referenced in [RFC6749] Sec 1.4. Access tokens
+    represent proof of authorization.
+
+Refresh token
+:   A credential used by the client to obtain new access tokens without
+    prompting the user, as referenced in [RFC6749] Sec 1.5. Refresh tokens do
+    not grant authorization or renew authorization, they only provide a
+    mechanism for obtaining new access tokens within the bounds of an existing
+    authorization.
 
 # Concepts
 
@@ -119,9 +140,11 @@ between refresh token exchanges.
 
 If the user renews their authorization, the authorization server SHOULD update
 the expiration time of existing refresh tokens if their lifetime was truncated
-due to user authorization expiration. The authorization server MUST NOT accept
-expired refresh tokens for any purpose, even if it has no way to update the
-expiration time of existing refresh tokens.
+due to user authorization expiration. (This is especially true if the
+authorization was updated out of band as discussed in
+[User Experience Considerations](#ux-considerations).) The
+authorization server MUST NOT accept expired refresh tokens for any purpose,
+even if it has no way to update the expiration time of existing refresh tokens.
 
 Access tokens MUST NOT expire later than the user authorization expires. If the
 user renews their authorization, the authorization server MAY update the
@@ -151,9 +174,9 @@ This specification introduces two new response parameters.
 
 If finite, the authorization server MUST return these values whenever the token
 endpoint response contains the `refresh_token` field. The authorization server
-MAY return these values even if the response contains no `refresh_token` field
-in the response, in which case the values correspond to the presented
-`refresh_token`. This can be useful in the following example cases:
+MAY return these values even if the response contains no `refresh_token` field,
+in which case the values correspond to the presented `refresh_token`. This can
+be useful in the following example cases:
 
 *   For `refresh_token_timeout`, the authorization server could have
     updated the existing refresh token lifetime in place.
@@ -182,8 +205,8 @@ an `authorization_expires_in` value corresponding to the short-lived calendar
 scope.
 
 If clients are requesting multiple scopes that can have different lifetimes,
-they will ultimately need make their own tradeoffs to decide how and when to ask
-the user for reauthorization. This specification's goal is simply to provide
+they will ultimately need to make their own tradeoffs to decide how and when to
+ask the user for reauthorization. This specification's goal is simply to provide
 them with more information to make this decision.
 
 ### Indefinite Expiration
@@ -195,7 +218,9 @@ omitted response fields could indicate either indefinite validity or simply lack
 of support for this specification. However, indefinite expiration and lack of
 information about expiration should be handled by the client in the same way.
 That is to say, the client must always handle refresh token invalidation not
-caused by expiration, such as by explicit user revocation.
+caused by expiration, such as by explicit user revocation. Clients MUST NOT
+make any assumptions that omitted response fields in one response imply their
+omission in later responses too.
 
 Rather than omitting a response value, an authorization server may choose to
 return a large arbitrary value, e.g. 315569520 for 10 years. This avoids any
@@ -213,23 +238,21 @@ SHOULD start a new authorization grant flow.
 
 Suppose an authorization server enforces that refresh tokens must be exchanged
 at least once every 7 days, and a user has granted authorization to an
-application for access for 30 days. The initial authorization code grant will
-result in the following response values:
+application for access for 10 days. The initial authorization code grant (Day 0)
+will result in the following response values:
 
     refresh_token_timeout: 604800  // 7 days
-    authorization_expires_in: 2592000  // 30 days
+    authorization_expires_in: 864000  // 10 days
 
-A refresh token grant 7 days after initial authorization will result in the
-following response values:
+A refresh token grant on Day 2 will result in the following response values:
 
     refresh_token_timeout: 604800  // 7 days
-    authorization_expires_in: 1987200  // 23 days
+    authorization_expires_in: 691200  // 8 days
 
-A refresh token grant 28 days after initial authorization will result in the
-following response values:
+A refresh token grant on Day 7 will result in the following response values:
 
-    refresh_token_timeout: 172800  // 2 days
-    authorization_expires_in: 172800  // 2 days
+    refresh_token_timeout: 259200  // 3 days
+    authorization_expires_in: 259200  // 3 days
 
 If instead, the client held the initial refresh token for 8 days (i.e. exceeding
 `refresh_token_timeout` but not `authorization_expires_in`), the refresh token
@@ -249,13 +272,13 @@ metadata:
 
     refresh_token_expiration_types_supported
         OPTIONAL. JSON array of supported expiration types. The possible values
-        are "authorization" and "credential".
+        are "authorization" and "token_timeout".
 
 If the authorization server omits expiration time response fields to indicate
 indefinite validity, it MUST declare `refresh_token_expiration_types_supported`
 in its metadata to indicate to the client that it's aware of this spec.
 
-# User Experience Considerations
+# User Experience Considerations {#ux-considerations}
 
 While clients must be able to gracefully handle tokens' expiring at any time,
 the user experience may suffer if there's an unintended interruption of service.
@@ -339,6 +362,14 @@ definitions in the IANA OAuth Authorization Server Metadata registry.
 
 Delete this section before publication.
 
+*   May 8, 2026:
+    *   Incorporate Vanshaj's review:
+        *   Add language on backwards compatibility for definite duration
+            becoming finite.
+        *   `refresh_token_expiration_types_supported` `"credential"` value
+            renamed to `"token_timeout"`.
+        *   Simplified example
+        *   Linking UX considerations from RT expiration section
 *   Feb 27, 2026:
     *   Address Issues 4, 5, 6 from George to discuss tradeoffs around managing
         multiple tokens or scopes with different expirations, as well as out of
