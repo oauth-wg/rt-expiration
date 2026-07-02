@@ -32,6 +32,7 @@ author:
 
 normative:
   RFC6749:
+  RFC7662:
   RFC8414:
   RFC9700:
 
@@ -152,7 +153,7 @@ expiration time of existing access tokens if possible. Resource servers MUST NOT
 accept expired access tokens for any purpose, even if the authorization server
 has no way to update the expiration time of existing access tokens.
 
-# Token endpoint response
+# Token endpoint response {#token-endpoint}
 
 This specification introduces two new response parameters.
 
@@ -272,6 +273,19 @@ grant will fail:
 Note that the error description text is non-normative and for illustrative
 purposes only.
 
+# Update to Token Introspection
+
+While Token Introspection [RFC7662] is primarily intended for resource servers
+seeking information about received access tokens, the specification does permit
+refresh token introspection as well. Authorization servers supporting refresh
+token introspection SHOULD support the `refresh_token_timeout` and
+`authorization_expires_in` parameters on the endpoint with the same semantics as
+defined in [Token endpoint response](#token-endpoint). These parameters SHOULD
+be returned only when the presented `token` is a refresh token.
+
+Use of a refresh token on token introspection MUST NOT reset any
+`refresh_token_timeout` duration.
+
 # Update to Authorization Server Metadata
 
 Support for the expiring refresh tokens SHOULD be declared in the
@@ -390,4 +404,3 @@ Delete this section before publication.
 {:numbered="false"}
 
 TODO acknowledge.
-
