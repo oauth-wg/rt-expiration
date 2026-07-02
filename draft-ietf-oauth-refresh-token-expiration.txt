@@ -4,8 +4,8 @@
 
 Web Authorization Protocol                                     N. Watson
 Internet-Draft                                               Google, LLC
-Intended status: Informational                                8 May 2026
-Expires: 9 November 2026
+Intended status: Informational                               2 July 2026
+Expires: 3 January 2027
 
 
           OAuth 2.0 Refresh Token and Authorization Expiration
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 November 2026.
+   This Internet-Draft will expire on 3 January 2027.
 
 Copyright Notice
 
@@ -220,6 +220,15 @@ authorization_expires_in
       value 2629800 denotes that the authorization will expire in one month
       from the time the response was generated. This value MAY exceed that
       of refresh_token_timeout.
+
+   An authorization server MAY return only one of these parameters.
+   Providing refresh_token_timeout without authorization_expires_in
+   indicates that the user's authorization is indefinite, but the
+   refresh token must be used within the specified timeout to remain
+   valid.  Providing authorization_expires_in without
+   refresh_token_timeout indicates that the authorization has a fixed
+   duration, but the refresh token has no maximum idle time and may
+   remain valid if the authorization is extended out of band.
 
    If finite, the authorization server MUST return these values whenever
    the token endpoint response contains the refresh_token field.  The
