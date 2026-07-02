@@ -403,4 +403,9 @@ Delete this section before publication.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+A special thanks to Aaron Parecki for his continuous feedback and invaluable
+assistance in guiding the author through the IETF draft process.
+
+The author would also like to thank Andrii Deinega, George Fletcher, Dan Moore,
+and Vanshaj Singhania for their reviews and technical suggestions on the repo
+and mailing list.
