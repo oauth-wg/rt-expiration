@@ -172,6 +172,14 @@ This specification introduces two new response parameters.
           from the time the response was generated. This value MAY exceed that
           of refresh_token_timeout.
 
+An authorization server MAY return only one of these parameters. Providing
+`refresh_token_timeout` without `authorization_expires_in` indicates that the
+user's authorization is indefinite, but the refresh token must be used within
+the specified timeout to remain valid. Providing `authorization_expires_in`
+without `refresh_token_timeout` indicates that the authorization has a fixed
+duration, but the refresh token has no maximum idle time and may remain valid if
+the authorization is extended out of band.
+
 If finite, the authorization server MUST return these values whenever the token
 endpoint response contains the `refresh_token` field. The authorization server
 MAY return these values even if the response contains no `refresh_token` field,
@@ -382,3 +390,4 @@ Delete this section before publication.
 {:numbered="false"}
 
 TODO acknowledge.
+
